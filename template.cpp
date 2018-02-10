@@ -18,9 +18,10 @@ using ll = long long;
  
 const ll INF = 1e9;
 const ll MOD = 1e9 + 7;
-int dx[4] = { 1,0,-1,0 };
-int dy[4] = { 0,1,0,-1 };
 
+#define REP(i, n) for(int i = 0; i < n; i++)
+#define RREP(i, n) for(int i = n - 1; i >= 0; i--)
+#define REP2(i, n, k) for(int i = 0; i < n; i += k)
 
 int main()
 {
