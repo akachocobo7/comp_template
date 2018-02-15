@@ -39,8 +39,8 @@ public:
 // 初期化
 void unionfind::init(ll n) {
 	for (ll i = 0; i < n; i++) {
-		par[i] = i;
-		rank[i] = 0;
+		par.push_back(i);
+		rank.push_back(0);
 	}
 }
 
