@@ -15,6 +15,7 @@
  
 using namespace std;
 using ll = long long;
+using ull = unsigned long long;
  
 const ll INF = 1e9;
 const ll MOD = 1e9 + 7;
