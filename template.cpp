@@ -81,42 +81,44 @@ bool unionfind::same(long long x, long long y) {
 
 /* bellmanford begin*/
 struct edge {
-	ll from, to, cost;
+	long long to, cost;
 };
 
-class bellmanford 
+class bellmanford
 {
 private:
 	long long vertex;	// 頂点数
-	long long inf = 1LL << 60;
-	vector<edge> e;	// 辺
-	vector<long long> distance;	// 最短距離
+	vector<vector<edge>> list;	// 隣接リスト
+	vector<long long> distance;	// 距離
 public:
-	void init(long long n);	// nは頂点の数
-	void add_edge(long long from, long long to, long long cost);	// 頂点fromから頂点toに辺を張る
+	void init(long long n);	// nは頂点数
+	void add_edge(long long v1, long long v2, long long cost);	// 頂点v1から頂点v2に辺を張る
 	bool run(long long s);		// sは開始地点。返り値がfalseのとき負の閉路あり
-	ll get_distance(long long v);	// 頂点vへの距離を返す
+	long long get_distance(long long v);	// 頂点vへの距離を返す
 };
 
 void bellmanford::init(long long n) {
+	list.resize(n);
 	vertex = n;
 }
 
-void bellmanford::add_edge(long long from, long long to, long long cost) {
-	e.push_back({ from, to, cost });
+void bellmanford::add_edge(long long v1, long long v2, long long cost) {
+	list[v1].push_back({ v2, cost });
 }
 
 bool bellmanford::run(long long s) {
-	distance = vector<long long>(vertex, inf);
+	distance = vector<long long>(vertex, INF);
 	distance[s] = 0;	//開始点の距離は0
 
 	for (long long i = 0; i < vertex; i++) {
-		for (auto es : e) {
-			if (distance[es.from] != inf && distance[es.to] > distance[es.from] + es.cost) {
-				distance[es.to] = distance[es.from] + es.cost;
-				if (i == vertex - 1) {
-					return false;
-					// distance[es.to] = -inf;
+		for (long long v = 0; v < vertex; v++) {
+			for (auto edge : list[v]) {
+				if (distance[v] != INF && distance[edge.to] > distance[v] + edge.cost) {
+					distance[edge.to] = distance[v] + edge.cost;
+					if (i == vertex - 1) {
+						//return false;
+						distance[edge.to] = -INF;
+					}
 				}
 			}
 		}
