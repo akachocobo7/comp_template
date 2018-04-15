@@ -13,13 +13,13 @@ private:
     vector<vector<edge>> list;  //隣接リスト
     vector<long long> distance;    // 距離
 public:
-    void init(long long n);  // nは頂点の数
+    dijkstra(long long n);  // nは頂点の数
     void add_edge(long long v1, long long v2, long long cost);    // 頂点v1から頂点v2に辺を張る
     void run(long long s);        // sは開始地点。
     long long get_distance(long long v);    // 頂点vへの距離を返す
 };
 
-void dijkstra::init(long long n){
+dijkstra::dijkstra(long long n){
     vertex = n;
     list.resize(n);
 }
@@ -33,7 +33,7 @@ void dijkstra::run(long long s){
     distance = vector<long long>(vertex, INF);
     distance[s] = 0;    // 開始点の距離は0
     que.push(P(0, s));
-
+    
     while(!que.empty()){
         P p = que.top(); que.pop();
         long long v = p.second;
