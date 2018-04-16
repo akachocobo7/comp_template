@@ -9,7 +9,6 @@ private:
     vector<long long> mincost;   // 集合Xからの辺の最小コスト
     vector<bool> used;  // 頂点iが集合Xに含まれているか
     long long vertex;   // 頂点数
-    long long res = 0;  // 最小全域木のコスト
 public:
     prim(long long n); // nは頂点の数
     void add_edge(long long u, long long v, long long cost);    // 頂点uから頂点vにコストcostの辺を張る
@@ -40,6 +39,8 @@ void prim::add_edge(long long u, long long v, long long cost){
 }
 
 long long prim::run(){
+    long long res = 0;  // 最小全域木のコスト
+    
     for(;;){
         long long v = -1;
         for(long long u = 0; u < vertex; u++){
