@@ -2,41 +2,47 @@
 
 
 
+template <typename T>
 class dijkstra
 {
 private:
-    using P = pair<long long, long long>;
+    using P = pair<T, T>;
     struct edge{
-        long long to, cost;
+        long long to;
+        T cost;
     };
     long long vertex;   // 頂点数
     vector<vector<edge>> list;  //隣接リスト
-    vector<long long> distance;    // 距離
+    vector<T> distance;    // 距離
 public:
-    dijkstra(long long n);  // nは頂点の数
-    void add_edge(long long v1, long long v2, long long cost);    // 頂点v1から頂点v2に辺を張る
+    dijkstra(long long n, T infinity = 1e16);  // nは頂点の数、infinityは初期化に使う値
+    void add_edge(long long v1, long long v2, T cost);    // 頂点v1から頂点v2に辺を張る
     void run(long long s);        // sは開始地点。
-    long long get_distance(long long v);    // 頂点vへの距離を返す
+    T get_distance(long long v);    // 頂点vへの距離を返す
 };
 
-dijkstra::dijkstra(long long n){
+template <typename T>
+dijkstra<T>::dijkstra(long long n, T infinity){
     vertex = n;
     list.resize(n);
+    distance = vector<T>(vertex, infinity);
 }
 
-void dijkstra::add_edge(long long v1, long long v2, long long cost){
+template <typename T>
+void dijkstra<T>::add_edge(long long v1, long long v2, T cost){
     list[v1].push_back({ v2, cost });
 }
 
-void dijkstra::run(long long s){
+template <typename T>
+void dijkstra<T>::run(long long s){
     priority_queue<P, vector<P>, greater<P>> que;
-    distance = vector<long long>(vertex, INF);
+ 
     distance[s] = 0;    // 開始点の距離は0
     que.push(P(0, s));
     
     while(!que.empty()){
         P p = que.top(); que.pop();
-        long long v = p.second;
+        T v = p.second;
         if(distance[v] < p.first) continue;
         for(auto e : list[v]){
             if(distance[e.to] > distance[v] + e.cost){
@@ -47,6 +53,7 @@ void dijkstra::run(long long s){
     }
 }
 
-long long dijkstra::get_distance(long long v){
+template <typename T>
+T dijkstra<T>::get_distance(long long v){
     return distance[v];
 }
