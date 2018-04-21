@@ -12,8 +12,8 @@ public:
     SegmentTree(long long m, long long t);   // mは配列の要素数、tは配列を初期化するときの値
     long long operation(long long t1, long long t2); // 二項演算
     void update(long long k, long long a);  // k番目(0-indexed)の値をaに変更
-    long long query(long long a, long long b);   // [a, b) の最小値を求める。外から呼ぶときはこっち
-    long long ans(long long a, long long b, long long k, long long l, long long r);   // [a, b) の最小値を求める。
+    long long query(long long a, long long b);   // [a, b) の値を求める。外から呼ぶときはこっち
+    long long ans(long long a, long long b, long long k, long long l, long long r);   // [a, b) の値を求める。
 };
 
 SegmentTree::SegmentTree(long long m, long long t){
