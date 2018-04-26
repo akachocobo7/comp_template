@@ -38,3 +38,24 @@ long long comb(long long n, long long r, long long mod){
     
     return tmp;
 }
+
+
+
+
+
+/* パスカルの三角形 */
+const long long table_size = 50;
+long long comb_table[table_size + 1][table_size + 1];   // nCr = comb_table[n][r]
+
+void make_table(){
+    for(long long i = 0; i <= table_size; i++){
+        for(long long j = 0; j <= i; j++){
+            if(i == 0 || j == i){
+                comb_table[i][j] = 1;
+            }
+            else{
+                comb_table[i][j] = comb_table[i - 1][j - 1] + comb_table[i - 1][j];
+            }
+        }
+    }
+}
