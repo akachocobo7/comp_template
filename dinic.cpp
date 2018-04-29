@@ -2,7 +2,7 @@
 
 
 
-class ford_fulkerson
+class dinic
 {
 private:
     long long inf;  // 初期化に使う値
@@ -13,25 +13,25 @@ private:
     vector<long long> level;    // sからの距離
     vector<long long> iter;     // どこまで調べ終わったか
 public:
-    ford_fulkerson(long long n, long long infinity = 1e16);    // nは頂点の数、infinityは初期化に使う値
+    dinic(long long n, long long infinity = 1e16);    // nは頂点の数、infinityは初期化に使う値
     void add_edge(long long from, long long to, long long cap); // fromからtoへ容量capの辺をはる
     void bfs(long long s);  // sからの最短距離を求める
     long long dfs(long long v, long long t, long long f);   // 増加パスをdfsで探す
     long long max_flow(long long s, long long t);   // sからtへの最大流を求める
 };
 
-ford_fulkerson::ford_fulkerson(long long n, long long infinity){
+dinic::dinic(long long n, long long infinity){
     list.resize(n);
     level.resize(n);
     iter.resize(n);
 }
 
-void ford_fulkerson::add_edge(long long from, long long to, long long cap){
+void dinic::add_edge(long long from, long long to, long long cap){
     list[from].push_back((edge){to, cap, (long long)list[to].size()});
     list[to].push_back((edge){from, 0, (long long)list[from].size() - 1});
 }
 
-void ford_fulkerson::bfs(long long s){
+void dinic::bfs(long long s){
     for(long long i = 0; i < level.size(); i++){
         level[i] = -1;
     }
@@ -49,7 +49,7 @@ void ford_fulkerson::bfs(long long s){
     }
 }
 
-long long ford_fulkerson::dfs(long long v, long long t, long long f){
+long long dinic::dfs(long long v, long long t, long long f){
     if(v == t)return f;
     
     for(long long &i = iter[v]; i < list[v].size(); i++){
@@ -66,7 +66,7 @@ long long ford_fulkerson::dfs(long long v, long long t, long long f){
     return 0;
 }
 
-long long ford_fulkerson::max_flow(long long s, long long t){
+long long dinic::max_flow(long long s, long long t){
     long long flow = 0;
     
     for(;;){
