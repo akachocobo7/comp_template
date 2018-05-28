@@ -59,3 +59,39 @@ void make_table(){
         }
     }
 }
+
+
+/* 行列累乗 */
+using vec = vector<long long>;
+using mat = vector<vec>;
+
+mat mul(mat a, mat b){
+    mat c(a.size(), vec(b[0].size()));
+    
+    for(long long i = 0; i < a.size(); i++){
+        for(long long k = 0; k < b.size(); k++){
+            for(long long j = 0; j < b[0].size(); j++){
+                c[i][j] = (c[i][j] + a[i][k] * b[k][j]);
+            }
+        }
+    }
+    
+    return c;
+}
+
+mat POW(mat a, long long n){
+    mat b(a.size(), vec(a.size()));
+    
+    for(long long i = 0; i < a.size(); i++){
+        b[i][i] = 1;
+    }
+    while(n > 0){
+        if(n & 1){
+            b = mul(b, a);
+        }
+        a = mul(a, a);
+        n >>= 1;
+    }
+    
+    return b;
+}
