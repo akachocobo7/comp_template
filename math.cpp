@@ -24,22 +24,27 @@ long long Fermat(long long a, long long x, long long p){
 }
 
 
-/* nCr (mod.ver) */
-long long comb(long long n, long long r, long long mod){
-    r = min(r, n - r);  // nCr = nC(n-r)
-    
-    long long tmp = 1;
-    for(long long i = n; i > n - r; i--){
-        tmp = tmp * i % mod;
+
+/* nCr */
+const long long table_size = 100005;
+long long fact[table_size], finv[table_size], inv[table_size];
+
+// 前処理
+void make_table(long long mod) {
+    fact[0] = fact[1] = 1;
+    finv[0] = finv[1] = 1;
+    inv[1] = 1;
+    for (long long i = 2; i < table_size; i++){
+        fact[i] = fact[i - 1] * i % mod;
+        inv[i] = mod - inv[mod % i] * (mod / i) % mod;
+        finv[i] = finv[i - 1] * inv[i] % mod;
     }
-    for(long long i = r; i > 1; i--){
-        tmp = tmp * Fermat(i, 1, mod) % mod;
-    }
-    
-    return tmp;
 }
 
-
+// nCr
+long long nCr(long long n, long long r, long long mod){
+    return fact[n] * (finv[r] * finv[n - r] % mod) % mod;
+}
 
 
 
