@@ -15,6 +15,8 @@
 #include <functional>
 #include <unordered_map>
 #include <bitset>
+#include <stack>
+
 
 using namespace std;
 using ll = long long;
