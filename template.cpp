@@ -31,7 +31,6 @@ const ll MOD = 1e9 + 7;
 #define yes(condition) if(condition) cout << "yes" << '\n'; else{ cout << "no" << '\n'; }
 
 
-int main()
-{
+int main(){
     
 }
