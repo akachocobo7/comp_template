@@ -26,9 +26,9 @@ const ll INF = 1e9;
 const ll MOD = 1e9 + 7;
 
 #define REP(i, n) for(int i = 0; i < n; i++)
-#define Yes(condition) if(condition) cout << "Yes" << '\n'; else{ cout << "No" << '\n'; }
-#define YES(condition) if(condition) cout << "YES" << '\n'; else{ cout << "NO" << '\n'; }
-#define yes(condition) if(condition) cout << "yes" << '\n'; else{ cout << "no" << '\n'; }
+#define Yes(condition) if(condition){ cout << "Yes" << '\n'; }else{ cout << "No" << '\n'; }
+#define YES(condition) if(condition){ cout << "YES" << '\n'; }else{ cout << "NO" << '\n'; }
+#define yes(condition) if(condition){ cout << "yes" << '\n'; }else{ cout << "no" << '\n'; }
 
 
 int main(){
