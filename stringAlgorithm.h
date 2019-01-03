@@ -1,5 +1,35 @@
 using ll = long long;
 
+
+/* Rolling Hash */
+class RollingHash
+{
+private:
+    using ull = unsigned long long;
+    const ull B = 100000007;    // ハッシュの基数
+public:
+    bool contain(string a, string b);   // aはbに含まれているか？
+};
+
+bool RollingHash::contain(string a, string b){
+    ll al = a.length(), bl = b.length();
+    if(al > bl) return false;
+    
+    ull t = 1;
+    for(ll i = 0; i < al; i++) t *= B;
+    
+    ull ah = 0, bh = 0;
+    for(ll i = 0; i < al; i++) ah = ah * B + a[i];
+    for(ll i = 0; i < al; i++) bh = bh * B + b[i];
+    
+    for(ll i = 0; i + al <= bl; i++){
+        if(ah == bh) return true;
+        if(i + al < bl) bh = bh * B + b[i + al] - b[i] * t;
+    }
+    return false;
+}
+
+/* Suffix Array */
 class SuffixArray
 {
 private:
@@ -51,4 +81,29 @@ bool SuffixArray::contain(string t){
         else b = c;
     }
     return S.compare(first_i[b], t.size(), t) == 0;
+}
+
+
+/* Z algorithm */
+vector<ll> Z_algorithm(string s){
+    ll n = s.size();
+    vector<ll> a(n);
+    a[0] = n;
+    ll i = 1, j = 0;
+    while(i < n){
+        while(i + j < n && s[j] == s[i + j]) j++;
+        a[i] = j;
+        if(j == 0){
+            i++;
+            continue;
+        }
+        ll k = 1;
+        while(i + k < n && k + a[k] < j){
+            a[i + k] = a[k];
+            k++;
+        }
+        i += k;
+        j -= k;
+    }
+    return a;
 }
