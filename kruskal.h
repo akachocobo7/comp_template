@@ -1,7 +1,4 @@
-#include "template.cpp"
-#include "unionfind.cpp"
-
-
+using ll = long long;
 
 /* unionfindを使います */
 
@@ -9,34 +6,34 @@ class kruskal
 {
 private:
     struct edge{
-        long long cost, u, v;
+        ll cost, u, v;
         
         bool operator<(const edge& e1) const {
             return cost < e1.cost;
         }
     };
     vector<edge> es;
-    long long vertex;    // vertexは頂点の数
+    ll vertex;    // vertexは頂点の数
 public:
-    kruskal(long long n);   // nは頂点数
-    void add_edge(long long u, long long v, long long cost);    // 頂点uから頂点vにコストcostの辺を貼る
-    long long run();
+    kruskal(ll n);   // nは頂点数
+    void add_edge(ll u, ll v, ll cost);    // 頂点uから頂点vにコストcostの辺を貼る
+    ll run();
 };
 
-kruskal::kruskal(long long n){
+kruskal::kruskal(ll n){
     vertex = n;
 }
 
-void kruskal::add_edge(long long u, long long v, long long cost){
+void kruskal::add_edge(ll u, ll v, ll cost){
     es.push_back({cost, u, v});
     es.push_back({cost, v, u});
 }
 
-long long kruskal::run(){
+ll kruskal::run(){
     sort(es.begin(), es.end());
     
     unionfind uni(vertex);
-    long long res = 0;
+    ll res = 0;
     
     for(auto e : es){
         if(!uni.same(e.u, e.v)){

@@ -1,24 +1,22 @@
-#include "template.cpp"
-
-
+using ll = long long;
 
 class unionfind
 {
 private:
-    vector<long long> par;
-    vector<long long> rank;
-    vector<long long> counter;
+    vector<ll> par;
+    vector<ll> rank;
+    vector<ll> counter;
 public:
-    unionfind(long long n);
-    long long find(long long x);
-    void unite(long long x, long long y);
-    bool same(long long x, long long y);
-    long long count(long long x);
+    unionfind(ll n);
+    ll find(ll x);
+    void unite(ll x, ll y);
+    bool same(ll x, ll y);
+    ll count(ll x);
 };
 
 // 初期化
-unionfind::unionfind(long long n){
-    for (long long i = 0; i < n; i++) {
+unionfind::unionfind(ll n){
+    for (ll i = 0; i < n; i++) {
         par.push_back(i);
         rank.push_back(0);
         counter.push_back(1);
@@ -26,7 +24,7 @@ unionfind::unionfind(long long n){
 }
 
 // 木の根を求める
-long long unionfind::find(long long x) {
+ll unionfind::find(ll x) {
     if (par[x] == x) {
         return x;
     }
@@ -36,7 +34,7 @@ long long unionfind::find(long long x) {
 }
 
 // xとyの属する集合を併合
-void unionfind::unite(long long x, long long y) {
+void unionfind::unite(ll x, ll y) {
     x = find(x);
     y = find(y);
     if (x == y)return;
@@ -57,11 +55,11 @@ void unionfind::unite(long long x, long long y) {
 }
 
 // xとyが同じ集合に属していたらtrue
-bool unionfind::same(long long x, long long y) {
+bool unionfind::same(ll x, ll y) {
     return find(x) == find(y);
 }
 
 // xと同じ集合に属している要素数を返す
-long long unionfind::count(long long x){
+ll unionfind::count(ll x){
     return counter[find(x)];
 }

@@ -1,6 +1,4 @@
-#include "template.cpp"
-
-
+using ll = long long;
 
 template <typename T>
 class dijkstra
@@ -8,35 +6,35 @@ class dijkstra
 private:
     using P = pair<T, T>;
     struct edge{
-        long long to;
+        ll to;
         T cost;
     };
-    long long vertex;   // 頂点数
+    ll vertex;   // 頂点数
     vector<vector<edge>> list;  //隣接リスト
     vector<T> distance;    // 距離
 public:
-    dijkstra(long long n, T infinity = 1e16);  // nは頂点の数、infinityは初期化に使う値
-    void add_edge(long long v1, long long v2, T cost);    // 頂点v1から頂点v2に辺を張る
-    void run(long long s);        // sは開始地点。
-    T get_distance(long long v);    // 頂点vへの距離を返す
+    dijkstra(ll n, T infinity = 1e16);  // nは頂点の数、infinityは初期化に使う値
+    void add_edge(ll v1, ll v2, T cost);    // 頂点v1から頂点v2に辺を張る
+    void run(ll s);        // sは開始地点。
+    T get_distance(ll v);    // 頂点vへの距離を返す
 };
 
 template <typename T>
-dijkstra<T>::dijkstra(long long n, T infinity){
+dijkstra<T>::dijkstra(ll n, T infinity){
     vertex = n;
     list.resize(n);
     distance = vector<T>(vertex, infinity);
 }
 
 template <typename T>
-void dijkstra<T>::add_edge(long long v1, long long v2, T cost){
+void dijkstra<T>::add_edge(ll v1, ll v2, T cost){
     list[v1].push_back({ v2, cost });
 }
 
 template <typename T>
-void dijkstra<T>::run(long long s){
+void dijkstra<T>::run(ll s){
     priority_queue<P, vector<P>, greater<P>> que;
- 
+    
     distance[s] = 0;    // 開始点の距離は0
     que.push(P(0, s));
     
@@ -54,6 +52,6 @@ void dijkstra<T>::run(long long s){
 }
 
 template <typename T>
-T dijkstra<T>::get_distance(long long v){
+T dijkstra<T>::get_distance(ll v){
     return distance[v];
 }
