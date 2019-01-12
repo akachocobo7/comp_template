@@ -20,9 +20,7 @@ SegmentTree::SegmentTree(ll m, ll t){
     
     while(n < m) n *= 2;
     
-    for(ll i = 0; i < 2 * n - 1; i++){
-        data.push_back(t);
-    }
+    data.assign(2 * n - 1, t);
     
     s = t;
 }
