@@ -2,16 +2,16 @@ using ll = long long;
 
 // 高速に n^m (mod p) を求める
 ll POW(ll n, ll m, ll p){
-    if(m == 0){
-        return 1;
+    ll res = 1, x = n;
+    for(ll i = m; i > 0; i >>= 1){
+        if(i & 1){
+            res *= x;
+            res %= MOD;
+        }
+        x *= x;
+        x %= MOD;
     }
-    if(m % 2 == 0){
-        ll tmp = POW(n, m / 2, p) % p;
-        return tmp * tmp % p;
-    }
-    else{
-        return n * POW(n, m - 1, p) % p;
-    }
+    return res;
 }
 
 /* フェルマーの小定理 : a^p ≡ a (mod p) */
