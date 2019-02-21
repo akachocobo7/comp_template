@@ -8,10 +8,10 @@ private:
     using ull = unsigned long long;
     const ull B = 100000007;    // ハッシュの基数
 public:
-    bool contain(string a, string b);   // aはbに含まれているか？
+    bool contain(string &a, string &b);   // aはbに含まれているか？
 };
 
-bool RollingHash::contain(string a, string b){
+bool RollingHash::contain(string &a, string &b){
     ll al = a.length(), bl = b.length();
     if(al > bl) return false;
     
@@ -37,13 +37,11 @@ private:
     vector<ll> first_i, rank;
     string S;
 public:
-    SuffixArray(string s);
-    bool contain(string t);   // Sの中にtがあるか？
+    SuffixArray(string &s);
+    bool contain(string &t);   // Sの中にtがあるか？
 };
 
-SuffixArray::SuffixArray(string s){
-    S = s;
-    n = S.size();
+SuffixArray::SuffixArray(string &s) : S(s), n(s.size()) {
     first_i.resize(n + 1);
     rank.resize(n + 1);
     
@@ -73,7 +71,7 @@ SuffixArray::SuffixArray(string s){
     }
 }
 
-bool SuffixArray::contain(string t){
+bool SuffixArray::contain(string &t){
     ll a = 0, b = S.size();
     while(b - a > 1){
         ll c = (a + b) / 2;
@@ -85,7 +83,10 @@ bool SuffixArray::contain(string t){
 
 
 /* Z algorithm */
-vector<ll> Z_algorithm(string s){
+/* 文字列が与えられた時、各 i について
+  「S と S[i:|S|-1] の最長共通接頭辞の長さ」
+   を記録した配列 A を 構築する */
+vector<ll> Z_algorithm(string &s){
     ll n = s.size();
     vector<ll> a(n);
     a[0] = n;
@@ -106,4 +107,28 @@ vector<ll> Z_algorithm(string s){
         j -= k;
     }
     return a;
+}
+
+/* Manacher */
+/* 文字列が与えられた時、各 i について
+  「文字 i を中心とする最長の回文の半径」
+   を記録した配列 R を構築する */
+vector<ll> manacher(string &s){
+    ll n = s.size();
+    vector<ll> r(n);
+    ll i = 0, j = 0;
+    while(i < n){
+        while(i - j >= 0 && i + j < n && s[i - j] == s[i + j]){
+            j++;
+        }
+        r[i] = j;
+        ll k = 1;
+        while(i - k >= 0 && i + k < n && k + r[i - k] < j){
+            r[i + k] = r[i - k];
+            k++;
+        }
+        i += k;
+        j -= k;
+    }
+    return r;
 }
