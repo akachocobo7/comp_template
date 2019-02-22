@@ -6,10 +6,10 @@ ll POW(ll n, ll m, ll p){
     for(ll i = m; i > 0; i >>= 1){
         if(i & 1){
             res *= x;
-            res %= MOD;
+            res %= p;
         }
         x *= x;
-        x %= MOD;
+        x %= p;
     }
     return res;
 }
