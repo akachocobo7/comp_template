@@ -43,6 +43,11 @@ ll nCr(ll n, ll r, ll mod){
     return fact[n] * (finv[r] * finv[n - r] % mod) % mod;
 }
 
+// nPr
+ll nPr(ll n, ll r, ll mod){
+    return fact[n] * finv[n - r] % mod;
+}
+
 
 
 /* 行列累乗 */
