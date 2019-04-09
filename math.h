@@ -40,6 +40,7 @@ void make_table(ll mod) {
 
 // nCr
 ll nCr(ll n, ll r, ll mod){
+    if(n < r || n < 0 || r < 0) return 0;
     return fact[n] * (finv[r] * finv[n - r] % mod) % mod;
 }
 
