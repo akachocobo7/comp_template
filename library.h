@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <bitset>
 #include <stack>
+#include <assert.h>
 
 
 using namespace std;
