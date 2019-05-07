@@ -335,9 +335,8 @@ public:
         while(!empty()){
             erase(0);
         }
-        ::reverse(as.begin(), as.end());
-        for(T a : as){
-            insert(0, a);
+        for(auto itr = as.rbegin(); itr != as.rend(); itr++){
+            insert(0, *itr);
         }
     }
     
