@@ -253,14 +253,13 @@ private:
     }
     
 public:
-    ImplictTreap(){}
-    ImplictTreap(vector<T> as){
-        ::reverse(as.begin(), as.end());
-        for(T a : as){
-            insert(0, a);
+    ImplicitTreap(){}
+    ImplicitTreap(vector<T> as){
+        for(auto itr = as.rbegin(); itr != as.rend(); itr++){
+            insert(0, *itr);
         }
     }
-    ImplictTreap(initializer_list<T> init){
+    ImplicitTreap(initializer_list<T> init){
         for(auto itr = rbegin(init); itr != rend(init); itr++){
             insert(0, *itr);
         }
@@ -314,8 +313,12 @@ public:
         cerr << endl;
     }
     
+    bool empty(){
+        return size() == 0;
+    }
+    
     T operator[](int pos){
-        if(pos < 0 || pos >= cnt(root)){
+        if(pos < 0 || pos >= size()){
             cerr << "Index out of range." << endl;
             return -1;
         }
@@ -329,12 +332,20 @@ public:
     }
     
     void operator =(vector<T> as){
-        while(cnt(root)){
+        while(!empty()){
             erase(0);
         }
         ::reverse(as.begin(), as.end());
         for(T a : as){
             insert(0, a);
         }
+    }
+    
+    void push_back(T x){
+        insert(size(), x);
+    }
+    
+    void pop_back(){
+        erase(size() - 1);
     }
 };
