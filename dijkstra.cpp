@@ -1,57 +1,47 @@
 using ll = long long;
+const ll INF = 1e18;
+
 
 template <typename T>
-class dijkstra
-{
+class dijkstra {
 private:
-    using P = pair<T, T>;
+    using P = pair<T, int>;
     struct edge{
-        ll to;
+        int to;
         T cost;
     };
-    ll vertex;   // 頂点数
-    vector<vector<edge>> list;  //隣接リスト
-    vector<T> distance;    // 距離
+    int n;
+    vector<vector<edge>> g;
+    vector<T> dist;
+    
 public:
-    dijkstra(ll n, T infinity = 1e16);  // nは頂点の数、infinityは初期化に使う値
-    void add_edge(ll v1, ll v2, T cost);    // 頂点v1から頂点v2に辺を張る
-    void run(ll s);        // sは開始地点。
-    T get_distance(ll v);    // 頂点vへの距離を返す
-};
-
-template <typename T>
-dijkstra<T>::dijkstra(ll n, T infinity){
-    vertex = n;
-    list.resize(n);
-    distance = vector<T>(vertex, infinity);
-}
-
-template <typename T>
-void dijkstra<T>::add_edge(ll v1, ll v2, T cost){
-    list[v1].push_back({ v2, cost });
-}
-
-template <typename T>
-void dijkstra<T>::run(ll s){
-    priority_queue<P, vector<P>, greater<P>> que;
+    dijkstra(int n) : n(n), g(n), dist(n, INF){}
     
-    distance[s] = 0;    // 開始点の距離は0
-    que.push(P(0, s));
+    void add_edge(int v1, int v2, T cost){
+        g[v1].push_back({v2, cost});
+    }
     
-    while(!que.empty()){
-        P p = que.top(); que.pop();
-        T v = p.second;
-        if(distance[v] < p.first) continue;
-        for(auto e : list[v]){
-            if(distance[e.to] > distance[v] + e.cost){
-                distance[e.to] = distance[v] + e.cost;
-                que.push(P(distance[e.to], e.to));
+    void run(int s){
+        priority_queue<P, vector<P>, greater<P>> que;
+    
+        dist[s] = 0;
+        que.push({0, s});
+        
+        while(!que.empty()){
+            P p = que.top(); que.pop();
+            int d = p.first;
+            int now = p.second;
+            if(dist[now] < d) continue;
+            for(auto& e : g[now]){
+                if(dist[e.to] > dist[now] + e.cost){
+                    dist[e.to] = dist[now] + e.cost;
+                    que.push({dist[e.to], e.to});
+                }
             }
         }
     }
-}
-
-template <typename T>
-T dijkstra<T>::get_distance(ll v){
-    return distance[v];
-}
+    
+    T get_distance(int v){
+        return dist[v];
+    }
+};

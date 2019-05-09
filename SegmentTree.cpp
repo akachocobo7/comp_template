@@ -1,57 +1,46 @@
 using ll = long long;
+const ll INF = 1e18;
 
-/* Segment Tree */
-class SegmentTree
-{
+template <typename T>
+class SegmentTree {
 private:
-    ll n;    // 配列の要素数
-    ll s;    // 配列を初期化するときの値
-    vector<ll> data;     // セグメントツリーを持つ配列
+    int n;    // 配列の要素数
+    T init;    // 配列を初期化するときの値
+    vector<T> data;     // セグメントツリーを持つ配列
 public:
-    SegmentTree(ll m, ll t);   // mは配列の要素数、tは配列を初期化するときの値
-    ll operation(ll t1, ll t2); // 二項演算
-    void update(ll k, ll a);  // k番目(0-indexed)の値をaに変更
-    ll query(ll a, ll b);   // [a, b) の値を求める。
-    ll query(ll a, ll b, ll k, ll l, ll r);   // [a, b) の値を求める。
-};
-
-SegmentTree::SegmentTree(ll m, ll t){
-    n = 1;
-    
-    while(n < m) n *= 2;
-    
-    data.assign(2 * n - 1, t);
-    
-    s = t;
-}
-
-ll SegmentTree::operation(ll t1, ll t2){
-    return min(t1, t2);
-}
-
-void SegmentTree::update(ll k, ll a){
-    k += n - 1;
-    data[k] = a;
-    
-    while(k > 0){
-        k = (k - 1) / 2;
-        data[k] = operation(data[k * 2 + 1], data[k * 2 + 2]);
+    SegmentTree(int m, T init = INF) : n(1), init(init){
+        while(n < m) n <<= 1;
+        data.assign(2 * n - 1, init);
     }
-}
-
-ll SegmentTree::query(ll a, ll b){
-    return query(a, b, 0, 0, n);
-}
-
-ll SegmentTree::query(ll a, ll b, ll k, ll l, ll r){
-    if(r <= a || b <= l) return s;
-    if(a <= l && r <= b){
-        return data[k];
+    
+    T operation(T t1, T t2){
+        return min(t1, t2);
     }
-    else{
-        ll vl = query(a, b, k * 2 + 1, l, (l + r) / 2);
-        ll vr = query(a, b, k * 2 + 2, (l + r) / 2, r);
+    
+    void update(int k, T val){
+        k += n - 1;
+        data[k] = val;
         
-        return operation(vl, vr);
+        while(k > 0){
+            k = (k - 1) / 2;
+            data[k] = operation(data[k * 2 + 1], data[k * 2 + 2]);
+        }
     }
-}
+    
+    // [a, b) の値を求める
+    T query(int a, int b){
+        return query(a, b, 0, 0, n);
+    }
+    
+    T query(int a, int b, int k, int l, int r){
+        if(r <= a || b <= l) return s;
+        if(a <= l && r <= b){
+            return data[k];
+        }
+        else{
+            T vl = query(a, b, k * 2 + 1, l, (l + r) / 2);
+            T vr = query(a, b, k * 2 + 2, (l + r) / 2, r);
+            return operation(vl, vr);
+        }
+    }
+};
