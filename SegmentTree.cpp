@@ -33,7 +33,7 @@ public:
     }
     
     T query(int a, int b, int k, int l, int r){
-        if(r <= a || b <= l) return s;
+        if(r <= a || b <= l) return init;
         if(a <= l && r <= b){
             return data[k];
         }
