@@ -13,9 +13,10 @@ private:
     int n;
     vector<vector<edge>> g;
     vector<T> dist;
+    vector<int> pre;
     
 public:
-    dijkstra(int n) : n(n), g(n), dist(n, INF){}
+    dijkstra(int n) : n(n), g(n), dist(n, INF), pre(n, -1){}
     
     void add_edge(int v1, int v2, T cost){
         g[v1].push_back({v2, cost});
@@ -35,6 +36,7 @@ public:
             for(auto& e : g[now]){
                 if(dist[e.to] > dist[now] + e.cost){
                     dist[e.to] = dist[now] + e.cost;
+                    pre[e.to] = now;
                     que.push({dist[e.to], e.to});
                 }
             }
@@ -43,5 +45,14 @@ public:
     
     T get_distance(int v){
         return dist[v];
+    }
+    
+    vector<int> get_path(int v){
+        vector<int> path;
+        for(; v != -1; v = pre[v]){
+            path.push_back(v);
+        }
+        reverse(path.begin(), path.end());
+        return path;
     }
 };
