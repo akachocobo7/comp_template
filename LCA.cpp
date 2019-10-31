@@ -69,4 +69,25 @@ public:
         }
         return res;
     }
+    
+    ll get_lca(ll u, ll v){
+        if(depth[u] > depth[v]){
+            swap(u, v);
+        }
+        for(ll k = 0; k < log_n; k++){
+            if(((depth[v] - depth[u]) >> k) & 1){
+                v = parent[k][v].first;
+            }
+        }
+        if(u == v){
+            return v;
+        }
+        for(ll k = log_n - 1; k >= 0; k--){
+            if(parent[k][u] != parent[k][v]){
+                u = parent[k][u].first;
+                v = parent[k][v].first;
+            }
+        }
+        return parent[0][v].first;
+    }
 };
