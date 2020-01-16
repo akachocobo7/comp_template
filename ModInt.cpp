@@ -87,21 +87,21 @@ public:
     constexpr ModInt& operator ++ () noexcept {
         val = (val + 1) % MOD_;
         return *this;
-    };
+    }
     constexpr ModInt operator ++ (int n) noexcept {
         ModInt<MOD_> t = *this;
         val = (val + 1) % MOD_;
         return t;
-    };
+    }
     constexpr ModInt& operator -- () noexcept {
         val = (val - 1 + MOD_) % MOD_;
         return *this;
-    };
+    }
     constexpr ModInt operator -- (int n) noexcept {
         ModInt<MOD_> t = *this;
         val = (val - 1 + MOD_) % MOD_;
         return t;
-    };
+    }
     constexpr ModInt operator ! () noexcept {
         return val? 1 : 0;
     }
