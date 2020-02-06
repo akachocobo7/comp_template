@@ -83,7 +83,7 @@ public:
             return v;
         }
         for(ll k = log_n - 1; k >= 0; k--){
-            if(parent[k][u] != parent[k][v]){
+            if(parent[k][u].first != parent[k][v].first){
                 u = parent[k][u].first;
                 v = parent[k][v].first;
             }
