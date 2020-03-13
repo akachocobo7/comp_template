@@ -23,6 +23,7 @@ public:
         
         return sum;
     }
+    
     void add(int pos, T x){
         for(pos++; pos < bit.size(); pos += pos & -pos){
             bit[pos] += x;
