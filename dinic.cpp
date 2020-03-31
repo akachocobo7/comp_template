@@ -1,7 +1,7 @@
 using ll = long long;
 const ll INF = 1e18;
 
-class dinic {
+class Dinic {
 private:
     struct edge {
         ll to, cap, rev;
@@ -9,8 +9,9 @@ private:
     vector<vector<edge>> list;  // グラフの隣接リスト
     vector<ll> level;    // sからの距離
     vector<ll> iter;     // どこまで調べ終わったか
+    
 public:
-    dinic(ll n) : list(n), level(n), iter(n){}
+    Dinic(ll n) : list(n), level(n), iter(n){}
     
     void add_edge(ll from, ll to, ll cap){
         list[from].push_back({to, cap, (ll)list[to].size()});

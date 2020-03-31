@@ -2,7 +2,7 @@ using ll = long long;
 const ll INF = 1e18;
 
 template <typename T>
-class bellmanford {
+class Bellmanford {
 private:
     struct edge {
         int to;
@@ -13,7 +13,7 @@ private:
     vector<T> dist;
     
 public:
-    bellmanford(int n) : n(n), g(n){}
+    Bellmanford(int n) : n(n), g(n){}
     
     void add_edge(int v1, int v2, T cost){
         g[v1].push_back({ v2, cost });

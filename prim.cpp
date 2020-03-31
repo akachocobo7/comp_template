@@ -1,13 +1,14 @@
 using ll = long long;
 
-class prim {
+class Prim {
 private:
     using P = pair<ll, ll>;
     vector<vector<P>> g;
     vector<bool> used;  // 頂点iが集合Xに含まれているか
     ll n;
+    
 public:
-    prim(ll n) : n(n), g(n){}
+    Prim(ll n) : n(n), g(n){}
     
     void add_edge(ll u, ll v, ll cost){
         g[u].push_back({cost, v});

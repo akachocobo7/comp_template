@@ -1,7 +1,8 @@
 /* 極大独立集合を求める */
 
 template<typename T>
-class maximal_indsets{
+class MaximalIndsets{
+private:
     const int n;
     const vector<vector<T>> &g;
     vector<vector<T>> ret;
@@ -9,7 +10,6 @@ class maximal_indsets{
     vector<bool> exists;
     int max_indsets_size = 0;
 
-private:
     void erase(T v){
         if(exists[v]){
             exists[v] = false;
@@ -76,7 +76,7 @@ private:
     }
 
 public:
-    maximal_indsets(const vector<vector<T>>& g) : n(g.size()), g(g), exists(n, true), deg(n), block(n) {
+    MaximalIndsets(const vector<vector<T>>& g) : n(g.size()), g(g), exists(n, true), deg(n), block(n) {
         for(int v = 0; v < n; v++){
             deg[v] = g[v].size();
         }

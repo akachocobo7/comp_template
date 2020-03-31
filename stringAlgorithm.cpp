@@ -5,6 +5,7 @@ class RollingHash {
 private:
     using ull = unsigned long long;
     const ull B = 100000007;    // ハッシュの基数
+    
 public:
     // aはbに含まれているか？
     bool contain(string &a, string &b){
@@ -32,6 +33,7 @@ private:
     int n, k;
     vector<int> first_i, rank;
     string S;
+    
 public:
     SuffixArray(string &s) : S(s), n(s.size()), first_i(n + 1), rank(n + 1) {
         for(int i = 0; i <= n; i++){

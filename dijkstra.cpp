@@ -3,7 +3,7 @@ const ll INF = 1e18;
 
 
 template <typename T>
-class dijkstra {
+class Dijkstra {
 private:
     using P = pair<T, int>;
     struct edge{
@@ -16,7 +16,7 @@ private:
     vector<int> pre;
     
 public:
-    dijkstra(int n) : n(n), g(n), dist(n, INF), pre(n, -1){}
+    Dijkstra(int n) : n(n), g(n), dist(n, INF), pre(n, -1){}
     
     void add_edge(int v1, int v2, T cost){
         g[v1].push_back({v2, cost});

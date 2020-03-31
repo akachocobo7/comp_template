@@ -2,11 +2,11 @@ const long long INF = 1e18;
 
 using T = long long;
 
-class xorshift{
+class Xorshift {
 private:
     uint64_t x;
 public:
-    xorshift(){
+    Xorshift(){
         random_device rnd;
         mt19937 mt(rnd());
         x = mt();

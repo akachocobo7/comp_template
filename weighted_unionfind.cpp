@@ -1,12 +1,13 @@
 using ll = long long;
 
-class weighted_unionfind {
+class WeightedUnionfind {
 private:
     vector<int> par;
     vector<int> rank;
     vector<ll> diff_weight;
+    
 public:
-    weighted_unionfind(int n) : rank(n), diff_weight(n) {
+    WeightedUnionfind(int n) : rank(n), diff_weight(n) {
         for (int i = 0; i < n; i++) {
             par.push_back(i);
         }

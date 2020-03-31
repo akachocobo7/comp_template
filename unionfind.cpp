@@ -1,12 +1,13 @@
 using ll = long long;
 
-class unionfind {
+class Unionfind {
 private:
     vector<int> par;
     vector<int> rank;
     vector<int> counter;
+    
 public:
-    unionfind(int n) : rank(n), counter(n, 1){
+    Unionfind(int n) : rank(n), counter(n, 1){
         for(int i = 0; i < n; i++){
             par.push_back(i);
         }

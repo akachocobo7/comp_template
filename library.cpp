@@ -18,6 +18,7 @@
 #include <stack>
 #include <assert.h>
 #include <unordered_set>
+#include <random>
 
 
 using namespace std;

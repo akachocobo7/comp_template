@@ -1,7 +1,7 @@
 /* unionfindを使います */
 
 template <typename T>
-class kruskal {
+class Kruskal {
 private:
     struct edge{
         T cost;
@@ -13,8 +13,9 @@ private:
     };
     vector<edge> es;
     int n;
+
 public:
-    kruskal(int n) : n(n){}
+    Kruskal(int n) : n(n){}
     
     void add_edge(int u, int v, T cost){
         es.push_back({cost, u, v});
@@ -24,7 +25,7 @@ public:
     T run(){
         sort(es.begin(), es.end());
     
-        unionfind uni(n);
+        Unionfind uni(n);
         T res = 0;
         
         for(auto& e : es){
