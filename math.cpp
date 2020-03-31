@@ -29,9 +29,9 @@ private:
     
 public:
     Combination(ll mod = 1e9 + 7, ll table_size = 300005) : mod(mod),
-                                                            fact(vector<ll>(table_size)),
-                                                            finv(vector<ll>(table_size)),
-                                                            inv(vector<ll>(table_size))  {
+                                                            fact(table_size),
+                                                            finv(table_size),
+                                                            inv(table_size)  {
         fact[0] = fact[1] = 1;
         finv[0] = finv[1] = 1;
         inv[1] = 1;
