@@ -1,29 +1,45 @@
 using ll = long long;
 
-
 class RollingHash {
 private:
     using ull = unsigned long long;
-    const ull B = 100000007;    // ハッシュの基数
+    const ull base1;
+    const ull base2;
+    const ull mod1;
+    const ull mod2;
+    vector<ull> hash1;
+    vector<ull> hash2;
+    vector<ull> pow1;
+    vector<ull> pow2;
+    
+    string s;
     
 public:
-    // aはbに含まれているか？
-    bool contain(string &a, string &b){
-        int al = a.length(), bl = b.length();
-        if(al > bl) return false;
-        
-        ull t = 1;
-        for(int i = 0; i < al; i++) t *= B;
-        
-        ull ah = 0, bh = 0;
-        for(int i = 0; i < al; i++) ah = ah * B + a[i];
-        for(int i = 0; i < al; i++) bh = bh * B + b[i];
-        
-        for(int i = 0; i + al <= bl; i++){
-            if(ah == bh) return true;
-            if(i + al < bl) bh = bh * B + b[i + al] - b[i] * t;
+    RollingHash(string &s) : s(s), base1(1009), base2(2009), mod1(1000000007), mod2(1000000009),
+                             hash1(s.size() + 1), hash2(s.size() + 1), pow1(s.size() + 1, 1), pow2(s.size() + 1, 1) {
+        for(int i = 0; i < s.size(); i++){
+            hash1[i + 1] = (hash1[i] * base1 + s[i]) % mod1;
+            hash2[i + 1] = (hash2[i] * base2 + s[i]) % mod2;
+            pow1[i + 1] = (pow1[i] * base1) % mod1;
+            pow2[i + 1] = (pow2[i] * base2) % mod2;
         }
-        return false;
+    }
+    
+    // s の [l, r) のハッシュ値を返す
+    ull get(int l, int r){
+        return (hash1[r] - ((hash1[l] * pow1[r - l]) % mod1) + mod1) % mod1;
+    }
+    
+    ull get(){
+        return get(0, s.size());
+    }
+    
+    ull operator () (){
+        return get(0, s.size());
+    }
+    
+    ull operator () (int l, int r){
+        return get(l, r);
     }
 };
 
